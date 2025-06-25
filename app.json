@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Chopped",
-    "slug": "Chopped",
-    "scheme": "Chopped",
+    "name": "chopped",
+    "slug": "chopped",
+    "scheme": "chopped",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
