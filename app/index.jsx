@@ -1,37 +1,49 @@
-import React, { Component } from "react";
-import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+} from "react-native";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default function index() {
   return (
-    <ImageBackground
-      source={require("../assets/download.jpg")}
-      className="flex-1 justify-center bg-cover"
-    >
-      <View className="flex-1 justify-center items-center bg-grey-600">
-        <Text
-          style={{ fontFamily: "Barrio-Regular", fontSize: 54, color: "black" }}
+    <>
+      <SafeAreaView className="flex-1">
+        <ImageBackground
+          source={require("../assets/Main_Bg.jpg")}
+          className="flex-1"
         >
-          {" "}
-          CHOPPED{" "}
-        </Text>
-        <Text
-          style={{ fontFamily: "serif", fontSize: 18, color: "#760F13" }}
-          className="text-center mt-10"
-        >
-          {" "}
-          Let’s Turn Ingredients into Recipes!{" "}
-        </Text>
-        <TouchableOpacity
-          className="bg-white py-2.5 px-10 rounded-full items-center justify-center w-[60%] shadow-lg shadow-black/40 top-10"
-          onPress={() => {
-            console.log("Get Started Pressed, navigation to sign in page");
-            // router.push("/(auth)/sign-in");
-          }}
-        >
-          {console.log("pressed")}
-          <Text className="text-[#760F13] text-lg font-bold">Get Started</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+          <View className = "justify-center items-center mt-28">
+            <View className="w-40 h-40 rounded-full bg-beige justify-center items-center">
+              
+          <MaterialCommunityIcons name="silverware-fork-knife" size={84} color="#016938" />
+        
+            </View>
+          </View>
+
+          <View className="justify-center items-center mt-20 ">
+            <Text className="font-rsextrabold text-6xl color-beige">
+              CHOPPED
+            </Text>
+            <Text className="color-beige mt-3 font-rsregular text-lg">
+              Think Less, Eat Better
+            </Text>
+          </View>
+
+          <View className="justify-center items-center mt-64">
+            <Text className="font-rsextrabold text-4xl color-beige">
+              Welcome!
+            </Text>
+            <TouchableOpacity className="bg-beige px-20 py-4 m-4 rounded-full justify-center items-center ">
+              <Text className="font-rsregular text-2xl color-green">
+                Get Started
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
+    </>
   );
 }
