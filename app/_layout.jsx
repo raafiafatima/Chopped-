@@ -34,10 +34,15 @@ const _layout = () => {
   }
   return (
     <Stack>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="index"
         options={{
-          title: "Home",
+          headerShown: false,
+        }}
+      /> */}
+      <Stack.Screen
+        name="(homepage)"
+        options={{
           headerShown: false,
         }}
       />
