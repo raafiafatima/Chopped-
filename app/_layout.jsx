@@ -46,6 +46,21 @@ const _layout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+      name="(ingredients)"
+      options={{
+        headerShown: false,
+      }}/>
+      <Stack.Screen
+      name="(recipes)"
+      options={{
+        headerShown: false,
+      }}/>
+      <Stack.Screen
+      name="(chatbot)"
+      options={{
+        headerShown: false,
+      }}/>
     </Stack>
   );
 };

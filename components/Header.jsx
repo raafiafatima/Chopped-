@@ -9,7 +9,11 @@ export default function Header({ type }) {
       <View className="flex flex-row justify-between p-6">
         {type == 1 ? (
           <>
-            <TouchableOpacity onPress={() => {router.push("/")}}>
+            <TouchableOpacity
+              onPress={() => {
+                router.push("/");
+              }}
+            >
               <View className="w-14 h-14 rounded-full bg-green justify-center items-center">
                 <MaterialCommunityIcons
                   name="silverware-fork-knife"
@@ -18,15 +22,23 @@ export default function Header({ type }) {
                 />
               </View>
             </TouchableOpacity>
-            <View className="mt-2">
-              <MaterialCommunityIcons
-                name="account"
-                size={40}
-                color="#016938"
-              />
-            </View>
           </>
-        ) : null}
+        ) : (
+          <>
+            <TouchableOpacity onPress={() => {router.back()}}>
+              <View className = "mt-2">
+                <Ionicons
+                  name="chevron-back-outline"
+                  size={30}
+                  color="#016938"
+                />
+              </View>
+            </TouchableOpacity>
+          </>
+        )}
+        <View>
+          <MaterialCommunityIcons name="account" size={40} color="#016938" />
+        </View>
       </View>
     </>
   );
