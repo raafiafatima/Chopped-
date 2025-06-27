@@ -10,7 +10,7 @@ import { router } from "expo-router";
 export default function homepage() {
   return (
     <>
-      <SafeAreaView className="bg-beige flex-1">
+      <SafeAreaView className="bg-beige flex-1" >
         <View className="rounded-b-3xl drop-shadow-xl elevation-lg overflow-hidden">
           <ImageBackground
             source={require("../../assets/images/bg.jpg")}

@@ -40,12 +40,12 @@ const _layout = () => {
           headerShown: false,
         }}
       /> */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name="(homepage)"
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
       <Stack.Screen
       name="(ingredients)"
       options={{
