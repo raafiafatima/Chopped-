@@ -1,7 +1,7 @@
 import { ImageBackground, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/Header";
-import Card from "../../components/Card";
+import Card from "../../components/HomePageCard";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Fontisto from '@expo/vector-icons/Fontisto';
 import Entypo from '@expo/vector-icons/Entypo';

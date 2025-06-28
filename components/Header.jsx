@@ -18,15 +18,26 @@ export default function Header({ type }) {
                 <MaterialCommunityIcons
                   name="silverware-fork-knife"
                   size={30}
-                  color="#F5F2E9"
+                  color="#016938"
                 />
               </View>
             </TouchableOpacity>
+            <View>
+              <MaterialCommunityIcons
+                name="account"
+                size={40}
+                color="#016938"
+              />
+            </View>
           </>
         ) : (
           <>
-            <TouchableOpacity onPress={() => {router.back()}}>
-              <View className = "mt-2">
+            <TouchableOpacity
+              onPress={() => {
+                router.back();
+              }}
+            >
+              <View className="mt-2">
                 <Ionicons
                   name="chevron-back-outline"
                   size={30}
@@ -34,11 +45,15 @@ export default function Header({ type }) {
                 />
               </View>
             </TouchableOpacity>
+            <View>
+              <MaterialCommunityIcons
+                name="account"
+                size={40}
+                color="#016938"
+              />
+            </View>
           </>
         )}
-        <View>
-          <MaterialCommunityIcons name="account" size={40} color="#016938" />
-        </View>
       </View>
     </>
   );

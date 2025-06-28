@@ -1,20 +1,24 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/Header";
 import {
+  Alert,
   FlatList,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
 import { useState } from "react";
 import IngredientCard from "../../components/IngredientCard";
+import Entypo from "@expo/vector-icons/Entypo";
+import { API_KEY, BASE_URL } from "@env";
+import RecipeCard from "../../components/RecipeCard";
 
 export default function UseMyIngredients() {
   const [item, setItem] = useState("");
   const [ingredientList, setIngredientList] = useState([]);
+  const [recipe, setRecipe] = useState(); //for recipes // render recipes in a flat list
+  const [show, setShow] = useState(false); // to show recipes in the view; true = recipes are showing, false = icon and text are showing
 
   const handleSubmit = () => {
     if (item) {
@@ -27,8 +31,8 @@ export default function UseMyIngredients() {
   };
 
   const deleteItem = (id) => {
-    const newList = ingredientList.filter((item) => item.id != id)
-    setIngredientList(newList)
+    const newList = ingredientList.filter((item) => item.id != id);
+    setIngredientList(newList);
   };
   return (
     <>
@@ -49,7 +53,21 @@ export default function UseMyIngredients() {
                 onSubmitEditing={handleSubmit}
               />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                if (ingredientList.length === 0) {
+                  Alert.alert(
+                    "Missing Ingredients",
+                    "Please add at least one ingredient to explore recipes!"
+                  );
+                  setShow(false)
+                }
+                else{
+                   setShow(true);
+                }
+                
+              }}
+            >
               <View className="border border-lgreen p-4 rounded-xl bg-beige drop-shadow-xl elevation-lg overflow-hidden w-28 h-14 items-center justify-center ">
                 <Text className="font-rslight">Explore</Text>
               </View>
@@ -72,6 +90,33 @@ export default function UseMyIngredients() {
               }}
             ></FlatList>
           </View>
+
+          {/* main view for showing recipes, initially shows icon and text for empty page */}
+
+          {show ? (
+            <>
+            <View className = "justify-center items-center">
+              {ingredientList.map((item) => {
+                return(
+                  <RecipeCard name={item.name}></RecipeCard>
+                )
+              })}
+
+            </View>
+            </>
+          ) : (
+            <>
+              <View className="justify-center items-center mt-48">
+                <Entypo name="shopping-basket" size={104} color="#A4CFA5" />
+                <Text className="text-center font-rsregular text-xl color-gray-600">
+                  Add a few ingredients
+                </Text>
+                <Text className="text-center font-rsregular text-xl color-gray-600">
+                  We’ll cook up some ideas for you.
+                </Text>
+              </View>
+            </>
+          )}
         </SafeAreaView>
       </View>
     </>
