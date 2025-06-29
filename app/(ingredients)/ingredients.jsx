@@ -12,6 +12,7 @@ import { useState } from "react";
 import IngredientCard from "../../components/IngredientCard";
 import Entypo from "@expo/vector-icons/Entypo";
 import { API_KEY, BASE_URL } from "@env";
+import axios from "axios";
 import RecipeCard from "../../components/RecipeCard";
 
 export default function UseMyIngredients() {
@@ -19,7 +20,8 @@ export default function UseMyIngredients() {
   const [ingredientList, setIngredientList] = useState([]);
   const [recipe, setRecipe] = useState(); //for recipes // render recipes in a flat list
   const [show, setShow] = useState(false); // to show recipes in the view; true = recipes are showing, false = icon and text are showing
-
+  const [query, setQuery] = useState(); // this is for converting list of ingredients into string
+  // function for handling submit when adding ingredients
   const handleSubmit = () => {
     if (item) {
       setIngredientList((prev) => [
@@ -30,10 +32,26 @@ export default function UseMyIngredients() {
     setItem("");
   };
 
+  // function fr handling deletion of items from the ingredient list
   const deleteItem = (id) => {
     const newList = ingredientList.filter((item) => item.id != id);
     setIngredientList(newList);
   };
+
+  // function for converting list of ingredients into string for URL
+  const ingredientsToString = () => {
+    let urlQuery = ingredientList.map((ing) => ing.name.trim()).join(",");
+    setQuery(urlQuery);
+  };
+
+  // function to get recipe from API 
+  async function getrecipe(params) {
+    try {
+      let resp = await axios.get(`${BASE_URL}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
       <View className="flex-1 bg-beige">
@@ -53,6 +71,7 @@ export default function UseMyIngredients() {
                 onSubmitEditing={handleSubmit}
               />
             </View>
+            {/* explore button */}
             <TouchableOpacity
               onPress={() => {
                 if (ingredientList.length === 0) {
@@ -60,12 +79,11 @@ export default function UseMyIngredients() {
                     "Missing Ingredients",
                     "Please add at least one ingredient to explore recipes!"
                   );
-                  setShow(false)
+                  setShow(false);
+                } else {
+                  setShow(!show);
+                  ingredientsToString();
                 }
-                else{
-                   setShow(true);
-                }
-                
               }}
             >
               <View className="border border-lgreen p-4 rounded-xl bg-beige drop-shadow-xl elevation-lg overflow-hidden w-28 h-14 items-center justify-center ">
@@ -79,7 +97,7 @@ export default function UseMyIngredients() {
             <FlatList
               horizontal={true}
               data={ingredientList}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) => {
                 return (
                   <IngredientCard
@@ -95,14 +113,11 @@ export default function UseMyIngredients() {
 
           {show ? (
             <>
-            <View className = "justify-center items-center">
-              {ingredientList.map((item) => {
-                return(
-                  <RecipeCard name={item.name}></RecipeCard>
-                )
-              })}
-
-            </View>
+              <View className="justify-center items-center">
+                {ingredientList.map((item) => {
+                  return <RecipeCard name={item.name}></RecipeCard>;
+                })}
+              </View>
             </>
           ) : (
             <>
