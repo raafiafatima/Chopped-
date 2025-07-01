@@ -6,9 +6,9 @@ import { router } from "expo-router";
 export default function Header({ type }) {
   return (
     <>
-      <View className="flex flex-row justify-between p-6">
-        {type == 1 ? (
-          <>
+      {type == 1 ? (
+        <>
+          <View className="flex flex-row justify-between p-6">
             <TouchableOpacity
               onPress={() => {
                 router.push("/");
@@ -29,9 +29,11 @@ export default function Header({ type }) {
                 color="#016938"
               />
             </View>
-          </>
-        ) : (
-          <>
+          </View>
+        </>
+      ) : (
+        <>
+          <View className="bg-green flex flex-row justify-between p-4 mb-2">
             <TouchableOpacity
               onPress={() => {
                 router.back();
@@ -41,7 +43,7 @@ export default function Header({ type }) {
                 <Ionicons
                   name="chevron-back-outline"
                   size={30}
-                  color="#016938"
+                  color="#F5F2E9"
                 />
               </View>
             </TouchableOpacity>
@@ -49,12 +51,12 @@ export default function Header({ type }) {
               <MaterialCommunityIcons
                 name="account"
                 size={40}
-                color="#016938"
+                color="#F5F2E9"
               />
             </View>
-          </>
-        )}
-      </View>
+          </View>
+        </>
+      )}
     </>
   );
 }
