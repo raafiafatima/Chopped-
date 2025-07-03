@@ -49,7 +49,7 @@ export default function UseMyIngredients() {
       setShow(false);
       return;
     }
-    // logic to convert the list of ingredients into string that will be used in the URL
+    // converting the list of ingredients into string that will be used in the URL
     let urlQuery = ingredientList
       .map((ing) => ing.name.trim().toLowerCase())
       .join(",");
