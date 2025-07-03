@@ -18,10 +18,10 @@ export default function homepage() {
           >
             <Header type={1}></Header>
             <View className="mt-4 mb-10 mx-8 ">
-              <Text className="font-rsextrabold text-5xl color-green">
+              <Text className="font-extrabold text-5xl color-green">
                 Hello there,{" "}
               </Text>
-              <Text className="font-rsextrabold text-3xl mt-4 color-grey">
+              <Text className="font-extrabold text-3xl mt-4 color-grey">
                 How can i help you today?{" "}
               </Text>
             </View>

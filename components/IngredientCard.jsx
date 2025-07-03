@@ -10,7 +10,7 @@ export default function IngredientCard({ name, handlePress }) {
             <Entypo name="cross" size={20} color="#333333" />
           </TouchableOpacity>
         </View>
-        <Text className="font-rslight ">{name}</Text>
+        <Text className="font-light ">{name}</Text>
       </View>
     </>
   );

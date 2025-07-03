@@ -3,103 +3,65 @@ import axios from "axios";
 import { API_KEY, BASE_URL } from "@env";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function RecipeCard({
-  id,
-  title,
-  img,
-  ingredientUsed,
-}) {
+export default function RecipeCard({ id, title, img, ingredientUsed }) {
   // 1. Initialize state properly
-  const [serving, setServing] = useState(''); 
-  const [time, setTime] = useState(''); 
-  const [recipe, setRecipe] = useState({
-    ingredients: [],
-    instructions: [],
-    data: null,
-    loading: false,
-    error: null,
-  });
-  // 2. Modified getRecipe function
-  async function getRecipe() {
+  const [serving, setServing] = useState("");
+  const [time, setTime] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
+
+  // handle calling API, passing data and navigating to details page
+  const handlePress = async () => {
+    if (isFetching) return;
+
     try {
-      setRecipe((prev) => ({ ...prev, loading: true }));
+      setIsFetching(true);
 
       const resp = await axios.get(
         `${BASE_URL}/${id}/information?apiKey=${API_KEY}`
       );
 
-      
-      const extractedData = {
-        ingredients: resp.data.extendedIngredients.map((ing) => ({
-          title: ing.nameClean || ing.name,
-          amount: ing.amount,
-          unit: ing.unit,
-          originalIngredient: ing.original,
-        })),
-        instructions:
-          resp.data.analyzedInstructions?.[0]?.steps.map((step) => step.step) ||
-          resp.data.instructions
-            ?.replace(/<[^>]+>/g, "")
-            .split("\n")
-            .filter((step) => step.trim() !== "") ||
-          [],
-        data: {
-          servings: resp.data.servings,
-          readyMinutes: resp.data.readyInMinutes,
-          url: resp.data.sourceUrl,
-          summary: resp.data.summary,
-        },
-      };
-      
-      console.log("Fetched recipe:", extractedData);
-      setRecipe({
-        ...extractedData,
-        loading: false,
-        error: null,
-      });
+      setServing(resp.data.servings);
+      setTime(resp.data.readyMinutes);
 
-    } catch (error) {
-      console.error("Failed to fetch recipe:", error);
-      setRecipe((prev) => ({
-        ...prev,
-        loading: false,
-        error: error.message,
-      }));
-    }
-  }
-  // handle passing data and navigating to details page
-  const handlePress = async () => {
-    try {
-      await getRecipe();
-
-      await new Promise(resolve => setTimeout(resolve, 50))
-      if(!recipe.data) {
-        throw new Error('recipe data not loaded')
-      }
-       router.push({
+      router.push({
         pathname: "/recipeDetail",
         params: {
           recipeId: id,
           recipeTitle: title,
           recipeImg: img,
-          recipeInstructions: JSON.stringify(recipe.instructions),
-          recipeIngredients: JSON.stringify(recipe.ingredients),
-          servings: recipe.data.servings,
-          readyTime: recipe.data.readyMinutes,
-          url: recipe.data.url,
-          summary: recipe.data.summary,
+          recipeInstructions: JSON.stringify(
+            resp.data.analyzedInstructions?.[0]?.steps?.map(
+              (step) => step.step
+            ) ||
+              resp.data.instructions
+                ?.replace(/<[^>]+>/g, "")
+                .split("\n")
+                .filter((step) => step.trim() !== "") ||
+              []
+          ),
+          recipeIngredients: JSON.stringify(
+            resp.data.extendedIngredients?.map((ing) => ({
+              title: ing.nameClean || ing.name,
+              amount: ing.amount,
+              unit: ing.unit,
+              originalIngredient: ing.original,
+            })) || []
+          ),
+          servings: resp.data.servings,
+          readyTime: resp.data.readyMinutes,
+          prepTime: resp.data.preparationMinutes || 0,
+          url: resp.data.sourceUrl || "",
+          summary: resp.data.summary || "",
         },
       });
-
-      setServing(recipe.data.servings)
-      setTime(recipe.data.readyMinutes)
     } catch (error) {
-      console.log(error)
+      console.log("failed to catch recipe", error);
+    } finally {
+      setIsFetching(false);
     }
   };
-
 
   return (
     <>
@@ -119,14 +81,15 @@ export default function RecipeCard({
                 {title.trim()}
               </Text>
               <Text
-                className="font-rsregular color-grey text-base"
+                className="font-regular color-grey text-base"
                 numberOfLines={2}
-                style={{ textTransform: 'capitalize' }}
+                style={{ textTransform: "capitalize" }}
               >
                 Ingredients: {ingredientUsed.join(", ")}
               </Text>
-              <Text className="font-rsregular color-green text-base">{time} mins • {serving} servings</Text>
-
+              <Text className="font-rsregular color-green text-base">
+                {time} mins • {serving} servings
+              </Text>
             </View>
           </View>
           <View className="flex-row-reverse pr-6 pb-5 mt-0">
@@ -139,4 +102,3 @@ export default function RecipeCard({
     </>
   );
 }
-

@@ -66,7 +66,7 @@ export default function UseMyIngredients() {
     try {
       // getting list of recipes that match the ingredients
       let resp = await axios.get(
-        `${BASE_URL}/findByIngredients?apiKey=${API_KEY}&ingredients=${ing}&number=10`
+        `${BASE_URL}/findByIngredients?apiKey=${API_KEY}&ingredients=${ing}&number=1`
       );
 
       setRecipes(
@@ -103,7 +103,7 @@ export default function UseMyIngredients() {
           <View className="flex-row items-center justify-between mt-4 ml-5 mr-5">
             <View>
               <TextInput
-                className="border border-gray-200 p-4 rounded-xl bg-white text-base w-72 drop-shadow-xl elevation-lg overflow-hidden font-rslight"
+                className="border border-gray-200 p-4 rounded-xl bg-white text-base w-72 drop-shadow-xl elevation-lg overflow-hidden font-light"
                 placeholder="Add Ingredients"
                 value={item}
                 onChangeText={setItem}
@@ -114,7 +114,7 @@ export default function UseMyIngredients() {
             {/* explore button */}
             <TouchableOpacity onPress={handleExplor}>
               <View className="border border-lgreen p-4 rounded-xl bg-beige drop-shadow-xl elevation-lg overflow-hidden w-28 h-14 items-center justify-center ">
-                <Text className="font-rslight">Explore</Text>
+                <Text className="font-light">Explore</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -165,10 +165,10 @@ export default function UseMyIngredients() {
               {/* icon and text for empty page */}
               <View className="justify-center items-center mt-48">
                 <Entypo name="shopping-basket" size={104} color="#A4CFA5" />
-                <Text className="text-center font-rsregular text-xl color-gray-600">
+                <Text className="text-center font-regular text-xl color-gray-600">
                   Add a few ingredients
                 </Text>
-                <Text className="text-center font-rsregular text-xl color-gray-600">
+                <Text className="text-center font-regular text-xl color-gray-600">
                   We’ll cook up some ideas for you.
                 </Text>
               </View>

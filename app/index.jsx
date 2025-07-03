@@ -27,16 +27,16 @@ export default function index() {
           </View>
 
           <View className="justify-center items-center mt-20 ">
-            <Text className="font-rsextrabold text-6xl color-beige">
+            <Text className="font-extrabold text-6xl color-beige">
               CHOPPED
             </Text>
-            <Text className="color-beige mt-3 font-rsregular text-lg">
+            <Text className="color-beige mt-3 font-regular text-lg">
               Think Less, Eat Better
             </Text>
           </View>
 
           <View className="justify-center items-center mt-64">
-            <Text className="font-rsextrabold text-4xl color-beige">
+            <Text className="font-extrabold text-4xl color-beige">
               Welcome!
             </Text>
             <TouchableOpacity
@@ -45,7 +45,7 @@ export default function index() {
                 router.push("/homepage");
               }}
             >
-              <Text className="font-rsregular text-2xl color-green">
+              <Text className="font-regular text-2xl color-green">
                 Get Started
               </Text>
             </TouchableOpacity>

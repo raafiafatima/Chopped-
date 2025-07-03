@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useGlobalSearchParams } from "expo-router/build/hooks";
-import { Image, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/Header";
+import Feather from "@expo/vector-icons/Feather";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function recipeDetails() {
   const params = useGlobalSearchParams();
@@ -20,6 +23,7 @@ export default function recipeDetails() {
   //   data: {
   //     servings: params.servings ? Number(params.servings) : 0,
   //     readyMinutes: params.readyTime ? Number(params.readyTime) : 0,
+  //     prepMinutes: params.prepTime ? Number(params.prepTime) : 0,
   //     url: params.url || "",
   //     summary: params.summary || "",
   //   },
@@ -31,6 +35,7 @@ export default function recipeDetails() {
   let recipe = {
     data: {
       readyMinutes: 40,
+      prepMinutes: 25,
       servings: 6,
       summary:
         'The recipe Baked Cinnamon Apple Slice Snack can be made <b>in about 40 minutes</b>. This recipe makes 6 servings with <b>137 calories</b>, <b>1g of protein</b>, and <b>4g of fat</b> each. For <b>59 cents per serving</b>, this recipe <b>covers 4%</b> of your daily requirements of vitamins and minerals. It is a good option if you\'re following a <b>gluten free, dairy free, and whole 30</b> diet. 1 person found this recipe to be tasty and satisfying. A mixture of earth balance, earth balance, raisins, and a handful of other ingredients are all it takes to make this recipe so tasty. It is brought to you by Foodista. Only a few people really liked this side dish. Taking all factors into account, this recipe <b>earns a spoonacular score of 3%</b>, which is improvable. If you like this recipe, you might also like recipes such as <a href="https://spoonacular.com/recipes/apricot-slice-632678">Apricot Slice</a>, <a href="https://spoonacular.com/recipes/baked-cinnamon-apple-wedges-633548">Baked Cinnamon Apple Wedges</a>, and <a href="https://spoonacular.com/recipes/antioxidant-almond-snack-mix-632425">Antioxidant Almond Snack Mix</a>.',
@@ -76,69 +81,120 @@ export default function recipeDetails() {
     const proteinMatch = htmlSummary.match(/(\d+g) of protein/);
     const fatMatch = htmlSummary.match(/(\d+g) of fat/);
 
-    return{
+    return {
       cleanText,
-    time: timeMatch?.[1] || 'N/A',
-    calories: caloriesMatch?.[1] || 'N/A',
-    protein: proteinMatch?.[1] || 'N/A',
-    fat: fatMatch?.[1] || 'N/A'
-    }
+      time: timeMatch?.[1] || "N/A",
+      calories: caloriesMatch?.[1] || "N/A",
+      protein: proteinMatch?.[1] || "N/A",
+      fat: fatMatch?.[1] || "N/A",
+    };
   };
 
-  const summaryData = cleanSummary(recipe.data.summary)
+  const summaryData = cleanSummary(recipe.data.summary);
 
   return (
     <>
-      <SafeAreaView className="flex-1">
-        {/* header */}
-        <Header type={2}></Header>
-
-        {/* view for image and title */}
-        <View className="flex-row">
-          {/* image */}
-          <View className="pl-4 pt-2">
+      <SafeAreaView className="flex-1 bg-beige">
+        <Header></Header>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* Hero Section */}
+          <View className="relative h-72">
             <Image
               source={{ uri: recipe.image }}
-              style={{ width: 150, height: 136, borderRadius: 10 }}
-            ></Image>
+              className="w-full h-full"
+              resizeMode="cover"
+            />
+            <View className="absolute bottom-0 left-0 right-0 bg-black/40 px-6 py-5">
+              <Text className="text-2xl font-bold text-white leading-8">
+                {recipe.title}
+              </Text>
+            </View>
           </View>
-          {/* title and servings */}
-          <View className="flex-1 pr-1 pl-3">
-            <Text className="text-2xl font-rsextrabold color-green">
-              {recipe.title}
-            </Text>
-            <Text className="text-lg font-rsregular">
-              Ready in: {recipe.data.readyMinutes} minutes
-            </Text>
-            <Text className="text-lg font-rsregular">
-              Servings: {recipe.data.servings}
-            </Text>
+
+          {/* Recipe Meta */}
+          <View className="flex-row bg-beige py-5 px-6">
+            <View className="flex-1 items-center gap-1">
+              <Feather name="users" size={24} color="#016938" />
+              <Text className="text-xs text-gray-500 font-medium">
+                Servings
+              </Text>
+              <Text className="text-sm text-gray-900 font-semibold">
+                {recipe.data.servings}
+              </Text>
+            </View>
+            <View className="w-px bg-gray-200 mx-4" />
+            <View className="flex-1 items-center gap-1">
+              <AntDesign name="clockcircleo" size={24} color="#016938" />
+              <Text className="text-xs text-gray-500 font-medium">
+                Prep Time
+              </Text>
+              <Text className="text-sm text-gray-900 font-semibold">
+                {recipe.data.prepMinutes} mins
+              </Text>
+            </View>
+            <View className="w-px bg-gray-200 mx-4" />
+            <View className="flex-1 items-center gap-1">
+              <MaterialCommunityIcons
+                name="chef-hat"
+                size={24}
+                color="#016938"
+              />
+              <Text className="text-xs text-gray-500 font-medium">
+                Total Time
+              </Text>
+              <Text className="text-sm text-gray-900 font-semibold">
+                {recipe.data.readyMinutes} mins
+              </Text>
+            </View>
           </View>
-        </View>
 
-        {/* ingredients */}
-        <View className="mt-4 ml-4">
-          <Text className="text-lg font-rsbold ">INGREDIENTS:</Text>
-          {recipe.ingredients.map((ing, index) => (
-            <Text key={index} className="text-base">
-              - {ing.title} ({ing.amount} {ing.unit})
+          {/* Ingredients Section */}
+          <View className="px-6 py-4">
+            <Text className="text-xl font-bold text-gray-900 mb-4">
+              INGREDIENTS
             </Text>
-          ))}
-        </View>
+            <View className="gap-3">
+              {recipe.ingredients.map((ingredient, index) => (
+                <View key={index} className="flex-row items-start">
+                  <View className="w-1.5 h-1.5 rounded-full bg-green mt-2 mr-2" />
+                  <View className="flex-1 flex-row">
+                    <Text className="w-48 text-md font-semibold text-green">
+                      {" "}
+                      {/* Fixed width */}
+                      {ingredient.amount} {ingredient.unit} {/* Space added */}
+                    </Text>
+                    <Text className="flex-1 text-md text-gray-700 leading-5">
+                      {ingredient.title}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
 
-        {/* instructions */}
-        <View className=" pt-2">
-          <Text className="text-lg font-rsbold">INSTRUCTIONS:</Text>
-          {recipe.instructions.map((step, index) => (
-            <Text key={index} className="text-base">
-              {index + 1}. {step}
+          {/* Instructions Section */}
+          <View className="px-6 py-6">
+            <Text className="text-xl font-bold text-gray-900 mb-4">
+              INSTRUCTIONS
             </Text>
-          ))}
-        </View>
-        <View className="">
-          <Text className="text-lg font-rsbold">SUMMARY:</Text>
-          <Text>{summaryData.cleanText}</Text>
-        </View>
+            <View className="gap-5">
+              {recipe.instructions.map((instruction, index) => (
+                <View key={index} className="flex-row gap-4">
+                  <View className="w-7 h-7 rounded-full bg-green items-center justify-center mt-0.5">
+                    <Text className="text-sm font-bold text-white">
+                      {index + 1}
+                    </Text>
+                  </View>
+                  <Text className="flex-1 text-md text-gray-700 leading-6">
+                    {instruction}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
+          <View className="h-8" />
+        </ScrollView>
       </SafeAreaView>
     </>
   );
