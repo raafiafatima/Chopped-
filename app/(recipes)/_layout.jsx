@@ -8,6 +8,11 @@ export default function layout(){
             options={{
                 headerShown: false,
             }}/>
+            <Stack.Screen
+            name="recipeDetail"
+            options={{
+                headerShown: false,
+            }}/>
         </Stack>
     )
 }

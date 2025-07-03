@@ -4,7 +4,7 @@ export default function layout(){
     return(
         <Stack>
         <Stack.Screen
-        name="ingredients"
+        name="recipeDetail"
         options={{
             headerShown: false,
         }}/>

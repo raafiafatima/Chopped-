@@ -19,7 +19,7 @@ export default function UseMyIngredients() {
   const [item, setItem] = useState("");
   const [ingredientList, setIngredientList] = useState([]);
   const [recipes, setRecipes] = useState([]); //for recipes // render recipes in a flat list
-  const [show, setShow] = useState(true); // to show recipes in the view; true = recipes are showing, false = icon and text are showing
+  const [show, setShow] = useState(false); // to show recipes in the view; true = recipes are showing, false = icon and text are showing
   const [query, setQuery] = useState(); // this is for converting list of ingredients into string
 
   // function for handling submit when adding ingredients
@@ -66,7 +66,7 @@ export default function UseMyIngredients() {
     try {
       // getting list of recipes that match the ingredients
       let resp = await axios.get(
-        `${BASE_URL}/findByIngredients?apiKey=${API_KEY}&ingredients=${ing}&number=1`
+        `${BASE_URL}/findByIngredients?apiKey=${API_KEY}&ingredients=${ing}&number=15`
       );
 
       setRecipes(

@@ -10,13 +10,17 @@ import { router } from "expo-router";
 export default function homepage() {
   return (
     <>
-      <SafeAreaView className="bg-beige flex-1" >
+      {/* <SafeAreaView className="bg-beige flex-1" > */}
+      <View className = "bg-beige">
+
         <View className="rounded-b-3xl drop-shadow-xl elevation-lg overflow-hidden">
           <ImageBackground
             source={require("../../assets/images/bg.jpg")}
             className=" w-screen"
           >
+            <View className = " relative mt-6">
             <Header type={1}></Header>
+            </View>
             <View className="mt-4 mb-10 mx-8 ">
               <Text className="font-extrabold text-5xl color-green">
                 Hello there,{" "}
@@ -48,12 +52,13 @@ export default function homepage() {
         <View className="mx-5 my-3">
           <Card
             heading={"What Should I Eat?"}
-            text={"Tell us what you got — we’ll find the perfect match. "}
-            icon={<Entypo name="bowl" size={34} color="#016938" />}
+            text={"Feeling indecisive? Let us surprise you with a delicious meal idea! "}
+            icon={<Entypo name="bowl" size={36} color="#016938" />}
             handlePress={() => {router.push("/chatbot")}}
           ></Card>
         </View>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
+      </View>
     </>
   );
 }

@@ -47,6 +47,11 @@ const _layout = () => {
         }}
       />
       <Stack.Screen
+      name="(details)"
+      options={{
+        headerShown: false,
+      }}/>
+      <Stack.Screen
       name="(ingredients)"
       options={{
         headerShown: false,

@@ -44,7 +44,7 @@ export default function recipeDetails() {
     }
   };
 
-  // dummy data
+  // // dummy data
   // let recipe = {
   //   data: {
   //     readyMinutes: 40,
@@ -90,13 +90,13 @@ export default function recipeDetails() {
 
   return (
     <>
-      <SafeAreaView className="flex-1 bg-beige">
+      {/* <SafeAreaView className="flex-1 bg-beige"> */}
         <View className="absolute top-8 left-0 right-0 z-50">
           <Header type={2}></Header>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Hero Section */}
-          <View className="relative h-72">
+          <View className="relative h-80">
             <Image
               source={{ uri: recipe.image }}
               className="w-full h-full"
@@ -224,7 +224,7 @@ export default function recipeDetails() {
 
           <View className="h-8" />
         </ScrollView>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </>
   );
 }

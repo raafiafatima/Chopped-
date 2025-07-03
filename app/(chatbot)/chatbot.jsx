@@ -7,7 +7,7 @@ export default function ChatBot() {
     <>
       <View className="flex-1 bg-beige">
         <SafeAreaView>
-          <Header type={2}></Header>
+          <Header text={"ASK ANYTHING"}></Header>
         </SafeAreaView>
       </View>
     </>

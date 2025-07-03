@@ -6,7 +6,14 @@ import { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 
-export default function RecipeCard({ id, title, img, ingredientUsed, likes }) {
+export default function RecipeCard({
+  id,
+  title,
+  img,
+  ingredientUsed,
+  likes,
+  isRecipe,
+}) {
   // 1. Initialize state properly
   const [serving, setServing] = useState("");
   const [time, setTime] = useState("");
@@ -84,22 +91,23 @@ export default function RecipeCard({ id, title, img, ingredientUsed, likes }) {
               >
                 {title.trim()}
               </Text>
-              <Text
-                className="font-regular color-grey text-base"
-                numberOfLines={2}
-                style={{ textTransform: "capitalize" }}
-              >
-                Ingredients: {ingredientUsed.join(", ")}
-              </Text>
-              {/* <Text className="font-rsregular color-green text-base">
-                {time} mins • {serving} servings
-              </Text> */}
-              <View className = "flex-row gap-2">
-                <Entypo name="heart" size={18} color="#A4CFA5" />
-                <Text className="font-regular color-gray-900 text-sm">
-                  {likes} Likes
-                </Text>
-              </View>
+              {isRecipe ? null : (
+                <>
+                  <Text
+                    className="font-regular color-grey text-base"
+                    numberOfLines={2}
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Ingredients: {ingredientUsed.join(", ")}
+                  </Text>
+                  <View className="flex-row gap-2">
+                    <Entypo name="heart" size={18} color="#A4CFA5" />
+                    <Text className="font-regular color-gray-900 text-sm">
+                      {likes} Likes
+                    </Text>
+                  </View>
+                </>
+              )}
             </View>
           </View>
           <View className="flex-row-reverse pr-6 pb-5 mt-0">
