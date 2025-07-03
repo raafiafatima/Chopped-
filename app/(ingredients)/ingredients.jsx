@@ -75,6 +75,7 @@ export default function UseMyIngredients() {
           title: rec.title,
           ingredient: rec.usedIngredients.map((ing) => ing.name),
           img: rec.image,
+          like : rec.likes,
         }))
       );
 
@@ -86,6 +87,7 @@ export default function UseMyIngredients() {
           title: rec.title,
           ingredient: rec.usedIngredients.map((ing) => ing.name),
           img: rec.image,
+          like : rec.likes, 
         }))
       );
     } catch (error) {
@@ -97,7 +99,7 @@ export default function UseMyIngredients() {
       <View className="flex-1 bg-beige">
         <SafeAreaView className = "flex-1">
           {/* header view */}
-          <Header type={2}></Header>
+          <Header text={'USE MY INGREDIENTS'}></Header>
 
           {/* Input and Explore View */}
           <View className="flex-row items-center justify-between mt-4 ml-5 mr-5">
@@ -153,6 +155,7 @@ export default function UseMyIngredients() {
                           title={item.title}
                           img={item.img}
                           ingredientUsed={item.ingredient}
+                          likes={item.like}
                         ></RecipeCard>
                      
                     );

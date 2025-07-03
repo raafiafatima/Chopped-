@@ -2,10 +2,11 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import axios from "axios";
 import { API_KEY, BASE_URL } from "@env";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Entypo from "@expo/vector-icons/Entypo";
 
-export default function RecipeCard({ id, title, img, ingredientUsed }) {
+export default function RecipeCard({ id, title, img, ingredientUsed, likes }) {
   // 1. Initialize state properly
   const [serving, setServing] = useState("");
   const [time, setTime] = useState("");
@@ -22,8 +23,11 @@ export default function RecipeCard({ id, title, img, ingredientUsed }) {
         `${BASE_URL}/${id}/information?apiKey=${API_KEY}`
       );
 
+      console.log("RAW API DATA:", resp.data);
+      console.log(resp.data.readyInMinutes);
+
       setServing(resp.data.servings);
-      setTime(resp.data.readyMinutes);
+      setTime(resp.data.readyInMinutes);
 
       router.push({
         pathname: "/recipeDetail",
@@ -50,10 +54,10 @@ export default function RecipeCard({ id, title, img, ingredientUsed }) {
             })) || []
           ),
           servings: resp.data.servings,
-          readyTime: resp.data.readyMinutes,
-          prepTime: resp.data.preparationMinutes || 0,
+          readyTime: resp.data.readyInMinutes,
+          prepTime: resp.data.preparationMinutes,
           url: resp.data.sourceUrl || "",
-          summary: resp.data.summary || "",
+          source: resp.data.sourceName,
         },
       });
     } catch (error) {
@@ -87,9 +91,15 @@ export default function RecipeCard({ id, title, img, ingredientUsed }) {
               >
                 Ingredients: {ingredientUsed.join(", ")}
               </Text>
-              <Text className="font-rsregular color-green text-base">
+              {/* <Text className="font-rsregular color-green text-base">
                 {time} mins • {serving} servings
-              </Text>
+              </Text> */}
+              <View className = "flex-row gap-2">
+                <Entypo name="heart" size={18} color="#A4CFA5" />
+                <Text className="font-regular color-gray-900 text-sm">
+                  {likes} Likes
+                </Text>
+              </View>
             </View>
           </View>
           <View className="flex-row-reverse pr-6 pb-5 mt-0">

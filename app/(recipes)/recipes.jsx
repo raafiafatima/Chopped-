@@ -7,7 +7,7 @@ export default function SearchRecipes() {
     <>
       <View className="flex-1 bg-beige">
         <SafeAreaView>
-          <Header type={2}></Header>
+          <Header type={2} text={'SEARCH RECIPES'}></Header>
         </SafeAreaView>
       </View>
     </>
