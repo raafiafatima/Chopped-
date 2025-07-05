@@ -1,7 +1,6 @@
-import axios from "axios";
+
 import { useGlobalSearchParams } from "expo-router/build/hooks";
 import { Image, ScrollView, Text, View, Linking, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/Header";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
